@@ -38,28 +38,28 @@ library
   hs-source-dirs:     src
 
   build-depends:
-                      array                      >= 0.5   && < 0.7,
-                      asn1-encoding              >= 0.9   && < 0.11,
-                      asn1-types                 >= 0.3   && < 0.5,
-                      async                      >= 2.0.2 && < 2.2,
-                      attoparsec                 >= 0.13  && < 0.15,
-                      base                       >= 4.7   && < 5.0,
-                      base64-bytestring          >= 1.0   && < 1.2,
-                      binary                     >= 0.7.1 && < 0.9,
-                      bytestring                 >= 0.10  && < 0.11,
-                      cereal                     >= 0.4   && < 0.6,
-                      containers                 >= 0.5   && < 0.7,
-                      cryptonite                 >= 0.6   && < 0.10,
-                      fingertree                 >= 0.1   && < 0.3,
-                      hourglass                  >= 0.2.9 && < 0.4,
-                      memory                     >= 0.7   && < 0.11,
-                      monadLib                   >= 3.7   && < 3.9,
-                      pretty-hex                 >= 1.0   && < 1.2,
-                      pure-zlib                  >= 0.4   && < 0.5,
-                      time                       >= 1.4   && < 1.6,
-                      tls                        >= 1.3.2 && < 1.5,
-                      x509                       >= 1.6   && < 1.8,
-                      x509-store                 >= 1.6   && < 1.8
+                      array,
+                      asn1-encoding,
+                      asn1-types,
+                      async,
+                      attoparsec,
+                      base,
+                      base64-bytestring,
+                      binary,
+                      bytestring,
+                      cereal,
+                      containers,
+                      cryptonite,
+                      fingertree,
+                      hourglass,
+                      memory,
+                      monadLib,
+                      pretty-hex,
+                      pure-zlib,
+                      time,
+                      tls,
+                      x509,
+                      x509-store
 
   other-modules:
                       Crypto.Hash.Easy,
@@ -94,10 +94,10 @@ library
                       Tor.State.Routers
 
   if flag(network) && !os(HaLVM)
-    build-depends:    network                    >= 2.5   && < 2.7
+    build-depends:    network
     exposed-modules:  Tor.NetworkStack.System
   if flag(hans)
-    build-depends:    hans                       >= 2.6   && < 2.8
+    build-depends:    hans
     exposed-modules:  Tor.NetworkStack.Hans
 
 executable haskell-tor
@@ -107,25 +107,25 @@ executable haskell-tor
   ghc-options:        -Wall
   hs-source-dirs:     exe
   build-depends:
-                      asn1-encoding              >= 0.8   && < 0.10,
-                      asn1-types                 >= 0.2   && < 0.4,
-                      base                       >= 4.7   && < 5.0,
-                      base64-bytestring          >= 1.0   && < 1.2,
-                      bytestring                 >= 0.10  && < 0.11,
-                      cryptonite                 >= 0.6   && < 0.10,
-                      haskell-tor                >= 0.1   && < 0.3,
-                      hourglass                  >= 0.2.9 && < 0.4,
-                      memory                     >= 0.7   && < 0.11,
-                      time                       >= 1.4   && < 1.6,
-                      tls                        >= 1.3.2 && < 1.5,
-                      x509                       >= 1.6   && < 1.8
+                      asn1-encoding,
+                      asn1-types,
+                      base,
+                      base64-bytestring,
+                      bytestring,
+                      cryptonite,
+                      haskell-tor,
+                      hourglass,
+                      memory,
+                      time,
+                      tls,
+                      x509
   if flag(hans)
-    build-depends:    hans                       >= 2.6   && < 2.8
+    build-depends:    hans
   if flag(network) && !os(HaLVM)
-    build-depends:    network                    >= 2.5   && < 2.7
+    build-depends:    network
   if os(HaLVM)
-    build-depends:    HALVMCore                  >= 2.0   && < 2.4,
-                      XenDevice                  >= 2.0   && < 2.4
+    build-depends:    HALVMCore,
+                      XenDevice
   if (!flag(hans) && !flag(network)) || (!flag(hans) && os(HaLVM))
     buildable:        False
 
@@ -144,19 +144,19 @@ test-suite test-tor
                       Test.TorCell
   ghc-options:        -fno-warn-orphans
   build-depends:
-                      asn1-types                 >= 0.2   && < 0.4,
-                      base                       >= 4.7   && < 5.0,
-                      binary                     >= 0.7   && < 0.9,
-                      bytestring                 >= 0.10  && < 0.11,
-                      cryptonite                 >= 0.6   && < 0.10,
-                      haskell-tor                >= 0.1   && < 0.3,
-                      hourglass                  >= 0.2.9 && < 0.4,
-                      HUnit                      >= 1.2   && < 1.4,
-                      QuickCheck                 >= 2.7   && < 2.9,
-                      memory                     >= 0.7   && < 0.11,
-                      pretty-hex                 >= 1.0   && < 1.4,
-                      test-framework             >= 0.8   && < 0.10,
-                      test-framework-hunit       >= 0.3   && < 0.5,
-                      test-framework-quickcheck2 >= 0.3   && < 0.5,
-                      time                       >= 1.4   && < 1.6,
-                      x509                       >= 1.6   && < 1.8
+                      asn1-types,
+                      base,
+                      binary,
+                      bytestring,
+                      cryptonite,
+                      haskell-tor,
+                      hourglass,
+                      HUnit,
+                      QuickCheck,
+                      memory,
+                      pretty-hex,
+                      test-framework,
+                      test-framework-hunit,
+                      test-framework-quickcheck2,
+                      time,
+                      x509
