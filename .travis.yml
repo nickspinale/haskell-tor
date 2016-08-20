@@ -28,6 +28,8 @@ matrix:
       addons: {apt: {packages: [cabal-install-head,ghc-head],  sources: [hvr-ghc]}}
     - env: CABALVER=head GHCVER=head   NETWORK=-f-network HANS=-hans
       addons: {apt: {packages: [cabal-install-head,ghc-head],  sources: [hvr-ghc]}}
+    - env: CABALVER=1.24 GHCVER=8.0.1 NETWORK=-fnetwork HANS=+hans
+      addons: {opt: {packages: [cabal-install-1.24,ghc-8.0.1], sources: [hvr-ghc]}}
 
   allow_failures:
     - env: CABALVER=head GHCVER=head   NETWORK=-fnetwork  HANS=+hans
@@ -41,8 +43,8 @@ before_install:
 install:
  - cabal sandbox init
  - cabal update
- - cabal install --only-dependencies --enable-tests $NETWORK -f$HANS --constraint="tls $HANS"
- - cabal configure --enable-tests $NETWORK -f$HANS --constraint="tls $HANS"
+ - cabal install --only-dependencies --enable-tests $NETWORK -f$HANS --constraint="tls $HANS" --contraint="haskell-tor $HANS"
+ - cabal configure --enable-tests $NETWORK -f$HANS --constraint="tls $HANS" --constraint="haskell-tor $HANS"
 
 script:
  - cabal build
