@@ -43,7 +43,7 @@ library
                       asn1-types,
                       async,
                       attoparsec,
-                      base,
+                      base               >= 4.7   && < 5.0,
                       base64-bytestring,
                       binary,
                       bytestring,
