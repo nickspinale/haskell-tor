@@ -43,7 +43,7 @@ library
                       asn1-types,
                       async,
                       attoparsec,
-                      base               >= 4.7   && < 5.0,
+                      base == 4.*,
                       base64-bytestring,
                       binary,
                       bytestring,
@@ -109,7 +109,7 @@ executable haskell-tor
   build-depends:
                       asn1-encoding,
                       asn1-types,
-                      base,
+                      base ==4.*,
                       base64-bytestring,
                       bytestring,
                       cryptonite,
@@ -145,7 +145,7 @@ test-suite test-tor
   ghc-options:        -fno-warn-orphans
   build-depends:
                       asn1-types,
-                      base,
+                      base ==4.*,
                       binary,
                       bytestring,
                       cryptonite,
