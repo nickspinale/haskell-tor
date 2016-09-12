@@ -52,11 +52,11 @@ library
                       cryptonite                 >= 0.6   && < 0.10,
                       fingertree                 >= 0.1   && < 0.3,
                       hourglass                  >= 0.2.9 && < 0.4,
-                      memory                     >= 0.7   && < 0.11,
+                      memory                     >= 0.7   && <= 0.11,
                       monadLib                   >= 3.7   && < 3.9,
                       pretty-hex                 >= 1.0   && < 1.2,
                       pure-zlib                  >= 0.4   && < 0.5,
-                      time                       >= 1.4   && < 1.6,
+                      time                       >= 1.4,
                       tls                        >= 1.3.2 && < 1.5,
                       x509                       >= 1.6   && < 1.8,
                       x509-store                 >= 1.6   && < 1.8
@@ -115,8 +115,8 @@ executable haskell-tor
                       cryptonite                 >= 0.6   && < 0.10,
                       haskell-tor                >= 0.1   && < 0.3,
                       hourglass                  >= 0.2.9 && < 0.4,
-                      memory                     >= 0.7   && < 0.11,
-                      time                       >= 1.4   && < 1.6,
+                      memory                     >= 0.7   && <= 0.11,
+                      time                       >= 1.4,
                       tls                        >= 1.3.2 && < 1.5,
                       x509                       >= 1.6   && < 1.8
   if flag(hans)
@@ -153,10 +153,10 @@ test-suite test-tor
                       hourglass                  >= 0.2.9 && < 0.4,
                       HUnit                      >= 1.2   && < 1.4,
                       QuickCheck                 >= 2.7   && < 2.9,
-                      memory                     >= 0.7   && < 0.11,
+                      memory                     >= 0.7   && <= 0.11,
                       pretty-hex                 >= 1.0   && < 1.4,
                       test-framework             >= 0.8   && < 0.10,
                       test-framework-hunit       >= 0.3   && < 0.5,
                       test-framework-quickcheck2 >= 0.3   && < 0.5,
-                      time                       >= 1.4   && < 1.6,
+                      time                       >= 1.4,
                       x509                       >= 1.6   && < 1.8
