@@ -6,7 +6,6 @@ module Test.HybridEncrypt(hybridEncryptionTest)
 import Control.Applicative
 #endif
 import Crypto.PubKey.RSA
-import Control.Applicative
 import Control.Monad
 import Crypto.Random
 import Data.ByteString(ByteString,pack)

@@ -641,6 +641,10 @@ serverTLSOpts creds = ServerParams {
     , supportedClientInitiatedRenegotiation = True
     , supportedEmptyPacket         = True
     }
+  , serverDebug                    = DebugParams {
+      debugSeed                    = Nothing
+    , debugPrintSeed               = const (return ())
+    }
   }
  where
   TLS.Credentials innerCreds = creds

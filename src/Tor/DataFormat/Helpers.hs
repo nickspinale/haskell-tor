@@ -39,6 +39,7 @@ import Data.ASN1.BinaryEncoding
 import Data.ASN1.Encoding
 import Data.ASN1.Types
 import Data.Attoparsec.ByteString
+import Data.Attoparsec.ByteString.Char8(decimal)
 import Data.ByteString.Char8(pack)
 import Data.ByteString.Base64
 import Data.ByteString(ByteString)
@@ -244,12 +245,10 @@ isBase64Char :: Word8 -> Bool
 isBase64Char x = isAlphaNum x || (x == 10) || inClass "/+=" x
 
 -- |Parse a decimal number that matches the given predicate.
-decimalNum :: (Integral a, Read a) => (a -> Bool) -> Parser a
+decimalNum :: Integral a => (a -> Bool) -> Parser a
 decimalNum isOK =
-  do n <- many1 decDigit
-     case reads (toString n) of
-       [(x, "")] | isOK x -> return x
-       _                  -> empty
+  do x <- decimal
+     if isOK x then return x else empty
 
 -- |Eat up some whitespace.
 whitespace :: Parser ()

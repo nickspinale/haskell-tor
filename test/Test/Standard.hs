@@ -10,7 +10,6 @@ import Data.Binary.Get
 import Data.Binary.Put
 import Data.ByteArray(pack)
 import Data.ByteString(ByteString)
-import qualified Data.ByteString.Lazy as BS
 import Test.QuickCheck
 
 arbitraryRNG :: Gen ChaChaDRG

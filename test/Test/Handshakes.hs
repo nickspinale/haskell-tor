@@ -1,31 +1,26 @@
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE FlexibleInstances    #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 module Test.Handshakes where
 
+#if !MIN_VERSION_base(4,8,0)
+import Control.Applicative
+import Control.Monad
+#endif
 import Crypto.Hash
 import Crypto.PubKey.Curve25519
 import Crypto.PubKey.RSA
-import Crypto.PubKey.RSA.Types
-import Control.Applicative
-import Control.Monad
 import Crypto.Random
 import Data.ByteArray(convert,eq)
-import Data.ByteString(ByteString,pack)
-import qualified Data.ByteString as BS
 import Data.Word
 import Hexdump
 import Test.Framework
 import Test.Framework.Providers.QuickCheck2
 import Test.QuickCheck hiding (generate)
-import Test.Standard
-import Tor.State.Credentials
-import Tor.HybridCrypto
 import Tor.Circuit
 import Tor.RouterDesc
 import Tor.DataFormat.TorCell
 import Tor.RNG
-
-import Debug.Trace
 
 data RouterTAP = RouterTAP RouterDesc PrivateKey
   deriving (Show)
@@ -56,7 +51,7 @@ instance Arbitrary RouterNTor where
   arbitrary =
     do g0 <- arbitrary :: Gen TorRNG
        let ((pub, priv), g1) = withDRG g0 generate25519
-           (fprint, g2)      = withRandomBytes g1 20 id
+           (fprint, _)       = withRandomBytes g1 20 id
            desc = blankRouterDesc{ routerFingerprint = fprint
                                  , routerNTorOnionKey = Just pub
                                  }
@@ -65,10 +60,10 @@ instance Arbitrary RouterNTor where
 tapHandshakeCheck :: Word32 -> RouterTAP -> TorRNG -> Bool
 tapHandshakeCheck circId (RouterTAP myRouter priv) g0 =
   let (g1, (privX, cbody)) = startTAPHandshake myRouter g0
-      (g2, (dcell, fenc, benc)) = advanceTAPHandshake priv circId cbody g1
+      (_ , (dcell, fenc, benc)) = advanceTAPHandshake priv circId cbody g1
       Created circIdD dbody = dcell
   in case completeTAPHandshake privX dbody of
-       Left err ->
+       Left _ ->
           False
        Right (fenc', benc') ->
          (circId == circIdD) && (fenc == fenc') && (benc == benc')
@@ -76,18 +71,18 @@ tapHandshakeCheck circId (RouterTAP myRouter priv) g0 =
 ntorHandshakeCheck :: Word32 -> RouterNTor -> TorRNG -> Bool
 ntorHandshakeCheck circId (RouterNTor router littleB) g0 =
   case startNTorHandshake router g0 of
-    (_, Nothing) ->
-      False
     (g1, Just (pair, cbody)) ->
       case advanceNTorHandshake router littleB circId cbody g1 of
-        (_, Left err) ->
-          False
         (_, Right (Created2 _ dbody, fenc, benc)) ->
           case completeNTorHandshake router pair dbody of
-            Left err ->
+            Left _ ->
               False
             Right (fenc', benc') ->
               (fenc == fenc') && (benc == benc')
+        _ ->
+          False
+    _ ->
+      False
 
 handshakeTests :: Test
 handshakeTests =
