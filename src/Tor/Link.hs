@@ -50,7 +50,7 @@ import Network.TLS (Context, Cipher, Version, SignatureAlgorithm (..)
                     , HashAlgorithm (..), ServerParams (..), Supported (..)
                     , Version (..), ServerHooks (..), CertificateUsage (..)
                     , ServerParams (..), Shared (..), HasBackend
-                    , ClientParams (..), ClientHooks (..))
+                    , ClientParams (..), ClientHooks (..), DebugParams (..))
 import qualified Network.TLS as TLS
 import System.Hourglass
 import Tor.DataFormat.RelayCell
@@ -411,6 +411,10 @@ clientTLSOpts target creds ccio = ClientParams {
     , supportedFallbackScsv        = True
     , supportedClientInitiatedRenegotiation = True
     , supportedEmptyPacket         = True
+    }
+  , clientDebug                    = DebugParams {
+      debugSeed                    = Nothing
+    , debugPrintSeed               = const (return ())
     }
   }
  where
